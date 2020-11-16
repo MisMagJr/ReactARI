@@ -4,15 +4,13 @@ import './TicTacToe.css';
 import Game from './Game.js';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <p className="App-intro">
-          <Game/>
-        </p>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <Game></Game>
+            </div>
+        );
+    }
 }
 
 export default App;
