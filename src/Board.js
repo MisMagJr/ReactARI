@@ -106,12 +106,51 @@ class Board extends React.Component {
 
     /**
      * Représentation du Board.
-     * @return un élément <div> contenant un élément <div> de class "status" contenant le status
-     * actuel du jeu (joueur actuel ou le gagnant) + 3 autres éléments <div> de class  "board-row"
-     * qui contiennent les cases du jeu.
+     * @return un élément <div> représentant le jeu.
      */
     render() {
-        return null;
+        return (
+            <div>
+                <div className="scoreboard">
+                    <div className="red-score"><p>{/*TODO*/}</p></div>
+                    <div className="blue-score"><p>{/*TODO*/}</p></div>
+                </div>
+                <input
+                    type="button"
+                    className="reset"
+                    //TODO click event
+                    value="Reset"
+                >
+                </input>
+                <input
+                    type="button"
+                    className="handleSinglePlayerButton"
+                    //TODO click event
+                    value="singleplayer"
+                >
+                </input>
+                <input
+                    type="button"
+                    className="handleMultiPlayerButton"
+                    //TODO click event
+                    value="multipalyer"
+                >
+                </input>
+                <div className="grid">
+                    <div className="status">{/*TODO*/}</div>
+                    {/*Chaque div de class board-row contient 3 éléments Square dans l'ordre.*/}
+                    <div className="board-row">
+                        {/*TODO*/}
+                    </div>
+                    <div className="board-row">
+                        {/*TODO*/}
+                    </div>
+                    <div className="board-row">
+                        {/*TODO*/}
+                    </div>
+                </div>
+            </div>
+        );
     }
 }
 export default Board;
