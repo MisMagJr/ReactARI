@@ -10,16 +10,15 @@ body {
 }
 
 .status {
-  margin-bottom: 10px;
+  font-weight: bold;
+  margin: 10px 0;
 }
 
 .square {
   background: #fff;
   border: 1px solid #999;
-  float: left;
   font-size: 48px;
   font-weight: bold;
-  line-height: 125px;
   height: 125px;
   margin-right: -1px;
   margin-top: -1px;
@@ -43,4 +42,97 @@ body {
 
 .game-info {
   margin-left: 20px;
+}
+
+.game-board {
+  width: 100%
+}
+
+.grid, .board-row{
+  width: 50%;
+  margin: auto
+}
+
+.scoreboard{
+  height: 150px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.red-score, .blue-score{
+  width:50%;
+  height:100%;
+}
+
+.red-score > p,.blue-score > p{
+  position: relative;
+  bottom: 25%;
+  font-weight: bold;
+  font-size: 70px;
+}
+
+.red-score{
+  float:left;
+  background-color: red;
+}
+
+.blue-score{
+  float:right;
+  background-color: blue;
+}
+
+@media (max-height:570px) {
+  .square {
+    height:100px;
+    width: 100px;
+  }
+}
+
+@media (max-height:500px) {
+  .square {
+    height:75px;
+    width: 75px;
+  }
+}
+
+@media (max-height:450px) {
+  .square {
+    height:50px;
+    width: 50px;
+  }
+}
+
+@media (max-height:350px) {
+  .square {
+    height:35px;
+    width: 35px;
+  }
+}
+
+@media (max-width: 1600px) {
+  .square {
+    height:100px;
+    width: 100px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .square {
+    height:75px;
+    width: 75px;
+  }
+}
+
+@media (max-width: 950px) {
+  .square {
+    height:50px;
+    width: 50px;
+  }
+}
+
+@media (max-width: 650px) {
+  .square {
+    height:35px;
+    width: 35px;
+  }
 }
