@@ -26,7 +26,7 @@ function calculateWinner(squares) {
 class Board extends React.Component {
     /**
      * Constructeur du composant.
-     * Doit eppeller le constructeur parent et initialiser l'état locale du composant avec 2 varibles:
+     * Doit eppeller le constructeur parent et initialiser l'état locale du composant avec 5 varibles:
      * *squares*: Tableau de 9 éléments initialisés à null.
      * *redIsNext*: Boolean définissant si c'est le tour du joueur "red", initialisé à true.
      * *redWins*: compteur définissant le nombre de victoire de "red", initialisé à 0.
@@ -54,7 +54,7 @@ class Board extends React.Component {
     }
 
     /**
-     * Trouve et retourne l'indice d'une case vide.
+     * Trouve et retourne l'indice d'une case vide au hasard.
      * @param squares tableau de cases.
      * @return indice d'une case vide du tableau squares.
      */
