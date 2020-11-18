@@ -1,4 +1,5 @@
 import React from 'react';
+import Square from "./Square";
 
 /**
  * Calcule le gagnant.
@@ -16,8 +17,12 @@ function calculateWinner(squares) {
         [0, 4, 8],
         [2, 4, 6],
     ];
-    // TODO
-    // Test si une des combinaisons gagnantes est satisfaites.
+    for (let i = 0; i < lines.length; i++) {
+        const [a, b, c] = lines[i];
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+            return squares[a];
+        }
+    }
     return null;
 }
 /**
@@ -35,14 +40,34 @@ class Board extends React.Component {
      */
     constructor(){
         super();
-        //TODO
+        this.state = {
+            squares: Array(9).fill(null),
+            redIsNext: true,
+            redWins: 0,
+            blueWins: 0,
+            vsBot: false
+        }
+    }
+
+    componentDidUpdate() {
+        const winner = calculateWinner(this.state.squares);
+        if (winner)
+            this.incrementScore(winner);
+        else if (!this.state.squares.includes(null))
+            this.setState({
+                squares: Array(9).fill(null)
+            });
     }
 
     /**
      * Réinitialise la grille et les scores des joueurs.
      */
     resetGame() {
-        // TODO
+        this.setState({
+            squares: Array(9).fill(null),
+            redWins: 0,
+            blueWins: 0
+        });
     }
 
     /**
@@ -50,7 +75,10 @@ class Board extends React.Component {
      * @param winner le gagnant de la partie. Valeur possible: "red" | "blue".
      */
     incrementScore(winner) {
-        // TODO
+        winner === "red"? this.setState({redWins: this.state.redWins + 1}) : this.setState({blueWins: this.state.blueWins + 1});
+        this.setState({
+            squares: Array(9).fill(null)
+        });
     }
 
     /**
@@ -59,7 +87,11 @@ class Board extends React.Component {
      * @return indice d'une case vide du tableau squares.
      */
     random(squares){
-        // TODO
+        let rand = Math.floor(Math.random() * Math.floor(8));
+        while (squares[rand] != null){
+            rand = Math.floor(Math.random() * Math.floor(8));
+        }
+        return rand;
     }
 
     /**
@@ -71,28 +103,49 @@ class Board extends React.Component {
      * @param i Indice de la case
      */
     handleClick(i) {
-        //TODO
+        const squares = this.state.squares;
+        if (squares[i] != null || !squares.includes(null))
+            return;
+        if (!this.state.vsBot){
+            squares[i] = this.state.redIsNext? "red" : "blue";
+            this.setState({
+                squares,
+                redIsNext: !this.state.redIsNext,
+            })
+        }else{
+            squares[i] = "red";
+            squares[this.random(squares)] = "blue";
+            this.setState({
+                squares
+            });
+        }
     }
 
     /**
      * Réinitialise la grille et les scores des joueurs lors du clique sur le bouton reset.
      */
     handleReset = () => {
-        // TODO
+        this.resetGame();
     };
 
     /**
      * Réinitialise la grille et les scores des joueurs et active le mode vsBot lors du clique sur le bouton singleplayer.
      */
     handleSinglePlayerButton = () => {
-        // TODO
+        this.resetGame();
+        this.setState({
+            vsBot: true
+        });
     }
 
     /**
      * Réinitialise la grille et les scores des joueurs et désactive le mode vsBot lors du clique sur le bouton multiplayer.
      */
     handleMultiPlayerButton = () => {
-        // TODO
+        this.resetGame();
+        this.setState({
+            vsBot: false
+        });
     }
 
     /**
@@ -101,7 +154,7 @@ class Board extends React.Component {
      * @return un élément *<Square>*.
      */
     renderSquare(i) {
-        //TODO
+        return <Square bgColor={this.state.squares[i]} onClick={() => this.handleClick(i)}/>;
     }
 
     /**
@@ -109,44 +162,51 @@ class Board extends React.Component {
      * @return un élément <div> représentant le jeu.
      */
     render() {
+        const status = "Next player: " + (this.state.redIsNext? "Red" : "Blue");
         return (
             <div>
                 <div className="scoreboard">
-                    <div className="red-score"><p>{/*TODO*/}</p></div>
-                    <div className="blue-score"><p>{/*TODO*/}</p></div>
+                    <div className="red-score"><p>{this.state.redWins}</p></div>
+                    <div className="blue-score"><p>{this.state.blueWins}</p></div>
                 </div>
                 <input
                     type="button"
                     className="reset"
-                    //TODO click event
+                    onClick={this.handleReset}
                     value="Reset"
                 >
                 </input>
                 <input
                     type="button"
                     className="handleSinglePlayerButton"
-                    //TODO click event
+                    onClick={this.handleSinglePlayerButton}
                     value="singleplayer"
                 >
                 </input>
                 <input
                     type="button"
                     className="handleMultiPlayerButton"
-                    //TODO click event
+                    onClick={this.handleMultiPlayerButton}
                     value="multipalyer"
                 >
                 </input>
                 <div className="grid">
-                    <div className="status">{/*TODO*/}</div>
+                    <div className="status">{status}</div>
                     {/*Chaque div de class board-row contient 3 éléments Square dans l'ordre.*/}
                     <div className="board-row">
-                        {/*TODO*/}
+                        {this.renderSquare(0)}
+                        {this.renderSquare(1)}
+                        {this.renderSquare(2)}
                     </div>
                     <div className="board-row">
-                        {/*TODO*/}
+                        {this.renderSquare(3)}
+                        {this.renderSquare(4)}
+                        {this.renderSquare(5)}
                     </div>
                     <div className="board-row">
-                        {/*TODO*/}
+                        {this.renderSquare(6)}
+                        {this.renderSquare(7)}
+                        {this.renderSquare(8)}
                     </div>
                 </div>
             </div>
